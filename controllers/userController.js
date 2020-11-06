@@ -1,7 +1,10 @@
 const users     = require('../models/users');
 
 exports.user_list = (req, res) => {
-    res.status(200).json(users);
+    res.status(200).json({
+        success: true,
+        content: users
+    });
 }
 
 exports.user_detail = (req, res) => {
