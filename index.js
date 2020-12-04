@@ -4,6 +4,7 @@ const cors          = require('cors');
 const users         = require('./routes/user');
 const helmet        = require('helmet');
 const mongoose      = require('mongoose');
+const slowDown      = require('express-slow-down');
 
 // CONNECT TO MONGOODB
 mongoose.connect('mongodb://localhost:27017/dust-bored',
@@ -14,6 +15,15 @@ mongoose.connect('mongodb://localhost:27017/dust-bored',
     }
 );
 
+// SLOWS DOWN API REQUEST
+const speedLimiter = slowDown({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    delayAfter: 50, // allow 50 requests per 15 minutes, then...
+    delayMs: 1000 // begin adding 1000ms OR 1 second of delay per request above 50:
+});
+   
+
+app.use(speedLimiter); // SLOWS DOWN ON ALL REQUEST
 app.use(express.json());
 app.use(cors());
 app.use(helmet());
