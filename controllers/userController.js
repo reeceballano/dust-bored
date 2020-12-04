@@ -103,3 +103,9 @@ exports.user_remove = async (req, res) => {
         })
     }
 }
+
+exports.user_update = async (req, res) => {
+    // FIND USER
+
+    // UPDATE
+}
