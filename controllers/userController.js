@@ -106,6 +106,17 @@ exports.user_remove = async (req, res) => {
 
 exports.user_update = async (req, res) => {
     // FIND USER
+    const _id = req.params._id;
 
+    const { name } = req.body;
+
+    const user = await User.findOne({ _id: _id });
+
+    if(!user) {
+        return console.log('user not found!');
+    }
+    
     // UPDATE
+    console.log(`found user`, name, _id);
+
 }
